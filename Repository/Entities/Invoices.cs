@@ -15,7 +15,7 @@ namespace Repository.Entities
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
         public int Quantity { get; set; }
-        public string Discount { get; set; }
-     
+        public virtual Discount Discount { get; set; }
+
     }
 }

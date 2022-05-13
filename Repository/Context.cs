@@ -18,12 +18,18 @@ namespace Repository
         }
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Invoices> Invoices { get; set; }
+        public virtual DbSet<Discount> Discounts { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"server=DESKTOP-K2MDB2L\SQLEXPRESS;database=ZirveDB;trusted_connection=true;");
+                optionsBuilder.UseSqlServer(@"User ID=sa;Password=123;Server=.;Database=Shop;Integrated Security=true;Pooling=true;");
             }
         }
     }

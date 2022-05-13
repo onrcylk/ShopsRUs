@@ -8,7 +8,7 @@ namespace Repository.Entities
     public class Discount : BaseEntity
     {
         public string DiscountName { get; set; }
-        public string ScopeType { get; set; }
+        public int Rate { get; set; }
        
     }
 }
