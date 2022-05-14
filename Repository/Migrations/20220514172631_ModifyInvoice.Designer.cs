@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220514172631_ModifyInvoice")]
+    partial class ModifyInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +34,8 @@ namespace Repository.Migrations
                     b.Property<string>("CustomerRoleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Statu")
-                        .HasColumnType("int");
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime2");
@@ -56,10 +58,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerRoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerStatu")
+                    b.Property<int>("CustomerRoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -268,7 +267,9 @@ namespace Repository.Migrations
                 {
                     b.HasOne("Repository.Entities.CustomerRole", "CustomerRole")
                         .WithMany("Customers")
-                        .HasForeignKey("CustomerRoleId");
+                        .HasForeignKey("CustomerRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Repository.Entities.Invoices", b =>

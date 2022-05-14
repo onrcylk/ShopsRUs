@@ -10,9 +10,10 @@ namespace Repository.Entities
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int CustomerRoleId { get; set; }
+ //       public int CustomerRoleId { get; set; }
+        public int CustomerStatu { get; set; }
 
-        public virtual CustomerRole CustomerRole { get; set; }
+    public virtual CustomerRole CustomerRole { get; set; }
 
-    }
+}
 }

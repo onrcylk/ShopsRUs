@@ -8,6 +8,7 @@ namespace Repository.Entities
     public class Invoices : BaseEntity
     {
         public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
         public string Salesperson { get; set; }
         public int OrderID { get; set; }
         public string ShipperName { get; set; }

@@ -9,7 +9,7 @@ namespace Repository.Entities
     {
      
         public string CustomerRoleName { get; set; }
-        public string Desc { get; set; }
+        public int Statu { get; set; }
 
         public virtual ICollection<Customers> Customers { get; set; }
     }

@@ -14,9 +14,9 @@ namespace Repository.Repositories
         {
         }
 
-        public async Task<Customers> GetByEmailAddressAsync(string emailAddress)
+        public  Task<Customers> GetByEmailAddressAsync(string emailAddress)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Email == emailAddress && !x.isDeleted);
+            return  dbSet.FirstOrDefaultAsync(x => x.Email == emailAddress && !x.isDeleted);
         }
      
     }

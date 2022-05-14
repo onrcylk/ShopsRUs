@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Common.Dto.Invoice
 {
@@ -17,6 +18,7 @@ namespace Common.Dto.Invoice
         public double UnitPrice { get; set; }
         public int Quantity { get; set; }
     
+        [JsonIgnore]
         public virtual ICollection<DiscountDto> Discounts { get; set; }
     }
 }

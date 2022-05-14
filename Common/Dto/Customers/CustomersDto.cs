@@ -11,8 +11,8 @@ namespace Common.Dto.Customers
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int CustomerRoleId { get; set; }
-        
+        public int CustomerStatu { get; set; }
+
         [JsonIgnore]
         public virtual CustomerRoleDto CustomerRoleDto { get; set; }
 

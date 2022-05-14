@@ -38,16 +38,14 @@ namespace Shops.Controllers
                 Customers customers = new Customers()
                 {
                     CreatedTime = DateTime.Now,
-                    CustomerRoleId = customersDto.CustomerRoleId,
+                    CustomerStatu = customersDto.CustomerStatu,
                     Email = customersDto.Email,
                     isDeleted = false,
                     Name=customersDto.Name,
                     Password=customersDto.Password,
                     Surname=customersDto.Surname,
                 };
-
                 var result = await serviceManager.Customer_Service.CreateAsync(customers);
-
                 if (result.Success)
                 {
                     return GenericResponse<string>.Ok();

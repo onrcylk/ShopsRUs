@@ -21,6 +21,35 @@ namespace Service.Services
         {
 
         }
+
+        public async Task<ServiceResult<Invoices>> DiscountInvoiceCreateAsync(Invoices entity)
+        {
+            if (entity == null)
+                return new ServiceResult<Invoices>(null, false, "Invoice info is empty!");
+
+            try
+            {
+                Invoices checkEntity;
+                if (entity.Id > 0)
+                {
+                    checkEntity = await repositoryManager.InvoicesRepository.GetByIDAsync(entity.Id);
+                    if (checkEntity != null)
+                        return new ServiceResult<Invoices>(null, false, "Invoice already exist!");
+                    else
+                        entity.Id = 0;
+                }
+                var satu = repositoryManager.CustomersRepository.GetByEmailAddressAsync(entity.CustomerEmail).Result.CustomerStatu;
+                await repositoryManager.InvoicesRepository.InsertAsync(entity);
+                await repositoryManager.CommitAsync();
+
+
+                return new ServiceResult<Invoices>(entity, true);
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResult<Invoices>(null, false, ex.Message);
+            }
+        }
         public async Task<ServiceResult<Invoices>> CreateAsync(Invoices entity)
         {
             if (entity == null)
