@@ -175,6 +175,10 @@ namespace Shops.Helper
         {
             return new GenericResponse<T>(true, ResultType.Success, message, value) { TotalCount = paging.totalCount };
         }
+        public static GenericResponse<T> List(T value)
+        {
+            return new GenericResponse<T>(true, ResultType.Success,"",value);
+        }
         public static GenericResponse<T> Error(ResultType resultType, string message, string errorCode, int? statusCode)
         {
             return new GenericResponse<T>(resultType, message, errorCode, statusCode);

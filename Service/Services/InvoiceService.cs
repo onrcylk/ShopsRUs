@@ -93,10 +93,25 @@ namespace Service.Services
         {
             throw new NotImplementedException();
         }
-
-        public Task<ServiceResult<IEnumerable<Invoices>>> GetListAsync(FilterCriteria filterCriteria, Expression<Func<Invoices, bool>> predicateQuery = null)
+        public async Task<ServiceResult<List<Invoices>>> GetListInvoiceAsync()
         {
-            throw new NotImplementedException();
+            ServiceResult<List<Invoices>> resultList = null;
+            resultList = new ServiceResult<List<Invoices>>(await repositoryManager.InvoicesRepository.GetInvoiceList(),true,"",null);
+            return new ServiceResult<List<Invoices>>(resultList.Data,true,"",resultList.paging);
+        }
+
+        public async Task<ServiceResult<IEnumerable<Invoices>>> GetListAsync(FilterCriteria filterCriteria, Expression<Func<Invoices, bool>> predicateQuery = null)
+        {
+            ServiceResult<IEnumerable<Invoices>> resultList = null;
+            resultList = new ServiceResult<IEnumerable<Invoices>>(await repositoryManager.InvoicesRepository.FindAsync(filterCriteria, predicateQuery), true, pagingFilter: filterCriteria.PagingFilter);
+            if (resultList.Success)
+            {
+                return new ServiceResult<IEnumerable<Invoices>>(resultList.Data, true, "", resultList.paging);
+            }
+            else
+            {
+                return new ServiceResult<IEnumerable<Invoices>>(null, false, resultList.Error);
+            }
         }
 
         public Task<ServiceResult> UpdateAsync(int id, Invoices entity)

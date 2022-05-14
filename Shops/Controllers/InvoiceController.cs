@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Shops.Helper;
 using Common.Dto.Invoice;
+using Common;
 
 namespace Shops.Controllers
 {
@@ -36,11 +37,10 @@ namespace Shops.Controllers
             {
                 var invoice = mapper.Map<Invoices>(ınvoiceDto);
 
-                var result = await serviceManager.Invoice_Service.DiscountInvoiceCreateAsync(invoice);
+                var result = await serviceManager.Invoice_Service.CreateAsync(invoice);
 
                 if (result.Success)
                 {
-                    //return result.Data.Discount.DiscountName; 
                     return GenericResponse<string>.Ok();
                 }
                 else
@@ -53,7 +53,33 @@ namespace Shops.Controllers
                 return GenericResponse<string>.Error(ResultType.Error, "Fatura oluşturulamadı", "", StatusCodes.Status500InternalServerError);
             }
         }
+        [HttpGet("GetList")]
+        [AllowAnonymous]
+        public async Task<GenericResponse<IEnumerable<InvoiceDto>>> GetList()
+        {
+            try
+            {
+                var result = await serviceManager.Invoice_Service.GetListInvoiceAsync();
+                await serviceManager.CommitAsync();
 
-      
+                if (result.Success)
+                {
+                    var resultList = result.Data;
+                    List<InvoiceDto> dtoList = mapper.Map<List<InvoiceDto>>(resultList);
+
+                    return GenericResponse<IEnumerable<InvoiceDto>>.List(dtoList);
+                }
+                else
+                {
+                    return GenericResponse<IEnumerable<InvoiceDto>>.Error(ResultType.Error, result.Error, "", StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (Exception ex)
+            {
+                return GenericResponse<IEnumerable<InvoiceDto>>.Error(ResultType.Error, "Fatura listesi getirilemedi", "", StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
     }
 }

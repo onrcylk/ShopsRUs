@@ -14,6 +14,11 @@ namespace Repository.Repositories
         {
         }
 
-     
+        public async Task<List<Invoices>> GetInvoiceList()
+        {
+            return await dbSet.ToListAsync();
+        }
+
+
     }
 }
