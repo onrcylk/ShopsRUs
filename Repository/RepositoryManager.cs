@@ -33,6 +33,73 @@ namespace Repository
             }
         }
         #endregion
+        #region UserRole
+        private UserRoleRepository userRoleRepository;
+        public UserRoleRepository UserRoleRepository
+        {
+            get
+            {
+                this.userRoleRepository = this.userRoleRepository ?? new UserRoleRepository(context);
+                return this.userRoleRepository;
+            }
+        }
+        #endregion
+        #region Role
+        private RoleRepository roleRepository;
+        public RoleRepository RoleRepository
+        {
+            get
+            {
+                this.roleRepository = this.roleRepository ?? new RoleRepository(context);
+                return this.roleRepository;
+            }
+        }
+        #endregion
+        #region CustomerRole
+        private CustomerRoleRepository customerRoleRepository;
+        public CustomerRoleRepository CustomerRoleRepository
+        {
+            get
+            {
+                this.customerRoleRepository = this.customerRoleRepository ?? new CustomerRoleRepository(context);
+                return this.customerRoleRepository;
+            }
+        }
+        #endregion
+        #region Customers
+        private CustomersRepository customersRepository;
+        public CustomersRepository CustomersRepository
+        {
+            get
+            {
+                this.customersRepository = this.customersRepository ?? new CustomersRepository(context);
+                return this.customersRepository;
+            }
+        }
+        #endregion
+        #region Discount
+        private DiscountRepository discountRepository;
+        public DiscountRepository DiscountRepository
+        {
+            get
+            {
+                this.discountRepository = this.discountRepository ?? new DiscountRepository(context);
+                return this.discountRepository;
+            }
+        }
+        #endregion
+        #region Invoices
+        private InvoicesRepository invoicesRepository;
+        public InvoicesRepository InvoicesRepository
+        {
+            get
+            {
+                this.invoicesRepository = this.invoicesRepository ?? new InvoicesRepository(context);
+                return this.invoicesRepository;
+            }
+        }
+        #endregion
+      
 
 
         public async Task CommitAsync()

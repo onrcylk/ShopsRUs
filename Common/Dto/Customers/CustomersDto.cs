@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace Repository.Entities
+namespace Common.Dto.Customers
 {
-    public class Customers : BaseEntity
+    public class CustomersDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public int CustomerRoleId { get; set; }
-
-        public virtual CustomerRole CustomerRole { get; set; }
+        
+        [JsonIgnore]
+        public virtual CustomerRoleDto CustomerRoleDto { get; set; }
 
     }
 }

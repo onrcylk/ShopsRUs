@@ -10,6 +10,10 @@ namespace Service
 
         UserService User_Service { get; }
 
+        InvoiceService Invoice_Service { get; }
+
+        CustomerService Customer_Service { get; }
+
         Task CommitAsync();
     }
 }

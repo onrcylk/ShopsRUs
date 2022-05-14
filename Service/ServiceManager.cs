@@ -82,7 +82,33 @@ namespace Service
             }
         }
         #endregion
+        #region Invoice
+        private InvoiceService invoiceService;
+        InvoiceService IServiceManager.Invoice_Service
+        {
+            get
+            {
+                if (this.invoiceService == null)
+                    invoiceService = new InvoiceService(serviceContext, this);
 
-       
+                return invoiceService;
+            }
+        }
+        #endregion
+        #region Customers
+        private CustomerService customersService;
+        CustomerService IServiceManager.Customer_Service
+        {
+            get
+            {
+                if (this.customersService == null)
+                    customersService = new CustomerService(serviceContext, this);
+
+                return customersService;
+            }
+        }
+        #endregion
+
+
     }
 }
