@@ -108,6 +108,19 @@ namespace Service
             }
         }
         #endregion
+        #region Discount
+        private DiscountService discountService;
+        DiscountService IServiceManager.Discount_Service
+        {
+            get
+            {
+                if (this.discountService == null)
+                    discountService = new DiscountService(serviceContext, this);
+
+                return discountService;
+            }
+        }
+        #endregion
 
 
     }

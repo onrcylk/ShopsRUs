@@ -13,6 +13,7 @@ namespace Service
         InvoiceService Invoice_Service { get; }
 
         CustomerService Customer_Service { get; }
+        DiscountService Discount_Service { get; }
 
         Task CommitAsync();
     }

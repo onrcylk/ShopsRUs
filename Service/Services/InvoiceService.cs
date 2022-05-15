@@ -38,7 +38,7 @@ namespace Service.Services
                     else
                         entity.Id = 0;
                 }
-                var satu = repositoryManager.CustomersRepository.GetByEmailAddressAsync(entity.CustomerEmail).Result.CustomerStatu;
+                var statu = repositoryManager.CustomersRepository.GetByEmailAddressAsync(entity.CustomerEmail).Result.CustomerStatu;
                 await repositoryManager.InvoicesRepository.InsertAsync(entity);
                 await repositoryManager.CommitAsync();
 

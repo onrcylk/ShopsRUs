@@ -37,7 +37,7 @@ namespace Shops.Controllers
             {
                 var invoice = mapper.Map<Invoices>(ınvoiceDto);
 
-                var result = await serviceManager.Invoice_Service.CreateAsync(invoice);
+                var result = await serviceManager.Invoice_Service.DiscountInvoiceCreateAsync(invoice);
 
                 if (result.Success)
                 {
