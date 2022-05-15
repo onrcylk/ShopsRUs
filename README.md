@@ -12,5 +12,6 @@ The project was developed with .Net Core 3.1 using the Domain-Driven-Design patt
 The database is MSSQL and built using CodeFirst and EFCore.
 To create the database, changing the connection information in appsettings.json
 NugetPackage Manager console update-database command should be written.
+If you want to test the fields CustomersRole, Discount and Authorize that need to be registered with API, UserRole
 API security is provided by using JWT token as Authorize. In order to register the user who will use the system, registration can be done by specifying the authorization level with the API.
 Attirubute is given as AllowAnonymous for testing APIs. It can be tested by bringing Authorize Attirubute to the API for which authorization control is desired.
