@@ -6,6 +6,12 @@ Veritabanın olusturulması ıcın appsettıngs.json da connection bilgilerini d
 NugetPackage Manager console update-database komut yazılması gerekmektedir.(Api ile kayıt atılması gereken alanlar CustomersRole,Discount ve Authorize test edilmek istenirse UserRole)
 Authorize olarak JWT token kullanarak api güvenliği sağlandı.Sistemi kullanacak kullanıcı kayıt etmek ıcın api ile yetki duzeyı belirtilerek kayıt atılabilir.
 Api lerin test edilmesi için attirubute  AllowAnonymous olarak verilmiştir.Yetki kontrolu yapılmak ıstenen api ye Authorize attirubute getirilerek test edilebilir.
+Projede swagger entegrasyonu vardır Api ve scheama dokumantasyonuna burada erişilebilir.
+Fatura kesilmeden önce müşteri kaydı olusturulmalıdır.
+Olusturulan musterinin statusu girilmelidir.
+1 Personel
+2 Üye
+3 Müşteri
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Kayıt Atılacak Alanlar
 CustomerRole Create Api
@@ -49,6 +55,12 @@ NugetPackage Manager console update-database command should be written.
 If you want to test the fields CustomersRole, Discount and Authorize that need to be registered with API, UserRole
 API security is provided by using JWT token as Authorize. In order to register the user who will use the system, registration can be done by specifying the authorization level with the API.
 Attirubute is given as AllowAnonymous for testing APIs. It can be tested by bringing Authorize Attirubute to the API for which authorization control is desired.
+The project has swagger integration Api and scheama documentation can be accessed here.
+Before an invoice is issued, a customer record must be created.
+The status of the created customer must be entered.
+1 Staff
+2 Members
+3 Customers
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Areas to be registered
 CustomerRole Create Api
