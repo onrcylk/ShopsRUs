@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Dto.Discount;
 using Common.Dto.Token;
 using Common.Dto.User;
 using Microsoft.AspNetCore.Http;
@@ -53,6 +54,25 @@ namespace Service.Services
         public Task<ServiceResult> DeleteAsync(int id)
         {
             throw new NotImplementedException();
+        }
+        public async Task<DiscountCalculationDto> DiscountCalculator(DiscountCalculationDto entity)
+        {
+            var result=await repositoryManager.DiscountRepository.GetByDiscount(entity.CustomerType);
+            if (entity.TotalAmount < 100)
+            {
+                entity.DiscountAmount = (entity.TotalAmount * result.Rate) / 100;
+                entity.TotarialPayment = entity.TotalAmount - entity.DiscountAmount;
+            }
+            else
+            {
+                //Faturadakı her 100 abd doları ıcın 5 dolar ındırım
+                entity.DiscountFiveOffForEveryOneHundered = Math.Floor(entity.TotalAmount / 100) * 5;
+                double newTotalAmount = entity.TotalAmount - entity.DiscountFiveOffForEveryOneHundered;
+                entity.DiscountAmount = (newTotalAmount * result.Rate) / 100;
+                entity.TotarialPayment = newTotalAmount - entity.DiscountAmount;
+                entity.DiscountRate = result.Rate;
+            }
+            return entity;
         }
 
         public Task<ServiceResult<IEnumerable<Discount>>> GetAsync(Expression<Func<Discount, bool>> filter = null, Func<IQueryable<Discount>, IOrderedQueryable<Discount>> orderBy = null, params Expression<Func<Discount, object>>[] includeProperties)

@@ -53,6 +53,31 @@ namespace Shops.Controllers
             }
         }
 
-      
+        [HttpPost("DiscountCalculation")]
+        [AllowAnonymous]
+        public async Task<GenericResponse<DiscountCalculation>> DiscountCalculation([FromBody] DiscountCalculationDto discountCalculationDto)
+        {
+            try
+            {
+                var result = await serviceManager.Discount_Service.DiscountCalculator(discountCalculationDto);
+                await serviceManager.CommitAsync();
+                DiscountCalculation discountCalculation = new DiscountCalculation();
+                discountCalculation.CustomerType = result.CustomerType;
+                discountCalculation.DiscountAmount = result.DiscountAmount;
+                discountCalculation.DiscountFiveOffForEveryOneHundered = result.DiscountFiveOffForEveryOneHundered;
+                discountCalculation.TotarialPayment= result.TotarialPayment;
+                discountCalculation.DiscountRate= result.DiscountRate;
+                discountCalculation.TotalAmount= result.TotalAmount;
+                discountCalculation.CreatedTime = DateTime.Now;
+                return GenericResponse<DiscountCalculation>.List(discountCalculation);
+            }
+            catch (Exception ex)
+            {
+                return GenericResponse<DiscountCalculation>.Error(ResultType.Error, "İndirim hesaplanamadı", "", StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+
     }
 }
