@@ -14,6 +14,7 @@ namespace Service
 
         CustomerService Customer_Service { get; }
         DiscountService Discount_Service { get; }
+        CustomerRoleService CustomerRole_Service { get; }
 
         Task CommitAsync();
     }

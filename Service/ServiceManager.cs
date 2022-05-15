@@ -121,6 +121,19 @@ namespace Service
             }
         }
         #endregion
+        #region CustomerRole
+        private CustomerRoleService customerRoleService;
+        CustomerRoleService IServiceManager.CustomerRole_Service
+        {
+            get
+            {
+                if (this.customerRoleService == null)
+                    customerRoleService = new CustomerRoleService(serviceContext, this);
+
+                return customerRoleService;
+            }
+        }
+        #endregion
 
 
     }

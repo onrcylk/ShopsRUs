@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Dto.Customers;
 using Common.Dto.Discount;
 using Common.Dto.Invoice;
 using Common.Dto.User;
@@ -19,6 +20,12 @@ namespace Service
 
             CreateMap<DiscountDto, Discount>();
             CreateMap<Discount, DiscountDto>();
+
+            CreateMap<CustomerRoleDto, CustomerRole>();
+            CreateMap<CustomerRole, CustomerRoleDto>();
+
+            CreateMap<CustomersDto, Customers>();
+            CreateMap<Customers, CustomersDto>();
 
         }
     }
