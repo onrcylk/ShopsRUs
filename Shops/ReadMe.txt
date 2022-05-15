@@ -36,3 +36,9 @@ Discount Create Api
   "rate": 5,
   "statu": 3
 }
+
+Fatura kesilmeden önce müşteri kaydı olusturulmalıdır.
+Olusturulan musterinin statusu girilmelidir.
+1 Personel
+2 Üye
+3 Müşteri
