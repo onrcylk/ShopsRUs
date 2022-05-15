@@ -38,9 +38,9 @@ Discount Create Api
   "rate": 5,
   "statu": 3
 }
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 -ENG-
 The project was developed with .Net Core 3.1 using the Domain-Driven-Design pattern approach.
 The database is MSSQL and built using CodeFirst and EFCore.
@@ -81,4 +81,6 @@ Discount Create API
   "rate": 5,
   "statu": 3
 }
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
