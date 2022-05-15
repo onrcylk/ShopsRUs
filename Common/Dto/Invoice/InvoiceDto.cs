@@ -17,8 +17,12 @@ namespace Common.Dto.Invoice
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
         public int Quantity { get; set; }
+        [JsonIgnore]
         public double TotalAmount { get; set; }
+        [JsonIgnore]
         public double DiscountAmount { get; set; }
+        [JsonIgnore]
+        public double TotarialPayment { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<DiscountDto> Discounts { get; set; }

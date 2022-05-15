@@ -13,7 +13,11 @@ namespace Repository.Repositories
         public DiscountRepository(Context context) : base(context)
         {
         }
+        public Task<Discount> GetByDiscount(int statu)
+        {
+            return dbSet.FirstOrDefaultAsync(x => x.Statu == statu && !x.isDeleted);
+        }
 
-     
+
     }
 }

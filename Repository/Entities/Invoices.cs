@@ -17,6 +17,8 @@ namespace Repository.Entities
         public double UnitPrice { get; set; }
         public double TotalAmount { get; set; }
         public double DiscountAmount { get; set; }
+        public double TotarialPayment { get; set; }
+        
         public int Quantity { get; set; }
         public virtual Discount Discount { get; set; }
 

@@ -55,7 +55,7 @@ namespace Shops.Controllers
         }
         [HttpGet("GetList")]
         [AllowAnonymous]
-        public async Task<GenericResponse<IEnumerable<InvoiceDto>>> GetList()
+        public async Task<GenericResponse<IEnumerable<Invoices>>> GetList()
         {
             try
             {
@@ -65,18 +65,18 @@ namespace Shops.Controllers
                 if (result.Success)
                 {
                     var resultList = result.Data;
-                    List<InvoiceDto> dtoList = mapper.Map<List<InvoiceDto>>(resultList);
+                    //List<InvoiceDto> dtoList = mapper.Map<List<InvoiceDto>>(resultList);
 
-                    return GenericResponse<IEnumerable<InvoiceDto>>.List(dtoList);
+                    return GenericResponse<IEnumerable<Invoices>>.List(resultList);
                 }
                 else
                 {
-                    return GenericResponse<IEnumerable<InvoiceDto>>.Error(ResultType.Error, result.Error, "", StatusCodes.Status500InternalServerError);
+                    return GenericResponse<IEnumerable<Invoices>>.Error(ResultType.Error, result.Error, "", StatusCodes.Status500InternalServerError);
                 }
             }
             catch (Exception ex)
             {
-                return GenericResponse<IEnumerable<InvoiceDto>>.Error(ResultType.Error, "Fatura listesi getirilemedi", "", StatusCodes.Status500InternalServerError);
+                return GenericResponse<IEnumerable<Invoices>>.Error(ResultType.Error, "Fatura listesi getirilemedi", "", StatusCodes.Status500InternalServerError);
             }
         }
 

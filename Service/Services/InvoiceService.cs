@@ -4,6 +4,7 @@ using Common.Dto.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using NPOI.SS.Formula.Functions;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,51 @@ namespace Service.Services
 
             try
             {
-                Invoices checkEntity;
-                if (entity.Id > 0)
-                {
-                    checkEntity = await repositoryManager.InvoicesRepository.GetByIDAsync(entity.Id);
-                    if (checkEntity != null)
-                        return new ServiceResult<Invoices>(null, false, "Invoice already exist!");
-                    else
-                        entity.Id = 0;
-                }
                 var statu = repositoryManager.CustomersRepository.GetByEmailAddressAsync(entity.CustomerEmail).Result.CustomerStatu;
+                //Customer 
+                if (statu == 3)
+                {
+                    DateTime registerTime = repositoryManager.CustomersRepository.GetByEmailAddressAsync(entity.CustomerEmail).Result.CreatedTime;
+                    TimeSpan discountCustomer = DateTime.Now - registerTime;
+                    if (discountCustomer.TotalDays < 730)
+                    {
+                        entity.TotalAmount = entity.UnitPrice * entity.Quantity;
+                        if (entity.TotalAmount < 100)
+                        {
+                            entity.DiscountAmount = 0;
+                            entity.TotarialPayment = entity.TotalAmount;
+                            await repositoryManager.InvoicesRepository.InsertAsync(entity);
+                            await repositoryManager.CommitAsync();
+                            return new ServiceResult<Invoices>(entity, true);
+                        }
+                        else
+                        {
+                            double iDiscount = Math.Floor(entity.TotalAmount / 100) * 5;
+                            double newTotalAmount = entity.TotalAmount - iDiscount;
+                            entity.DiscountAmount = 0;
+                            entity.TotarialPayment = newTotalAmount;
+                            await repositoryManager.InvoicesRepository.InsertAsync(entity);
+                            await repositoryManager.CommitAsync();
+                            return new ServiceResult<Invoices>(entity, true);
+                        }
+                    }
+                }
+                var discountRate = repositoryManager.DiscountRepository.GetByDiscount(statu).Result.Rate;
+
+                entity.TotalAmount = entity.UnitPrice * entity.Quantity;
+                if (entity.TotalAmount < 100)
+                {
+                    entity.DiscountAmount = (entity.TotalAmount * discountRate) / 100;
+                    entity.TotarialPayment = entity.TotalAmount - entity.DiscountAmount;
+                }
+                else
+                {
+                    //Faturadakı her 100 abd doları ıcın 5 dolar ındırım
+                    double iDiscount = Math.Floor(entity.TotalAmount / 100) * 5;
+                    double newTotalAmount = entity.TotalAmount - iDiscount;
+                    entity.DiscountAmount = (newTotalAmount * discountRate) / 100;
+                    entity.TotarialPayment = newTotalAmount - entity.DiscountAmount;
+                }
                 await repositoryManager.InvoicesRepository.InsertAsync(entity);
                 await repositoryManager.CommitAsync();
 
@@ -96,8 +132,8 @@ namespace Service.Services
         public async Task<ServiceResult<List<Invoices>>> GetListInvoiceAsync()
         {
             ServiceResult<List<Invoices>> resultList = null;
-            resultList = new ServiceResult<List<Invoices>>(await repositoryManager.InvoicesRepository.GetInvoiceList(),true,"",null);
-            return new ServiceResult<List<Invoices>>(resultList.Data,true,"",resultList.paging);
+            resultList = new ServiceResult<List<Invoices>>(await repositoryManager.InvoicesRepository.GetInvoiceList(), true, "", null);
+            return new ServiceResult<List<Invoices>>(resultList.Data, true, "", resultList.paging);
         }
 
         public async Task<ServiceResult<IEnumerable<Invoices>>> GetListAsync(FilterCriteria filterCriteria, Expression<Func<Invoices, bool>> predicateQuery = null)
